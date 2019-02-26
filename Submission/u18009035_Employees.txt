@@ -1,0 +1,193 @@
+-- MySQL dump 10.13  Distrib 8.0.15, for osx10.14 (x86_64)
+--
+-- Host: wheatley.cs.up.ac.za    Database: u18009035_Employees
+-- ------------------------------------------------------
+-- Server version	5.6.38-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+ SET NAMES utf8mb4 ;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `departments`
+--
+
+DROP TABLE IF EXISTS `departments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `departments` (
+  `dept_no` char(4) NOT NULL DEFAULT '',
+  `dept_name` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`dept_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `departments`
+--
+
+LOCK TABLES `departments` WRITE;
+/*!40000 ALTER TABLE `departments` DISABLE KEYS */;
+INSERT INTO `departments` VALUES ('d001','Human Resources'),('d002','Information Technology'),('d003','Marketing'),('d004','Finance'),('d005','Research & Development'),('d006','Logistics'),('d007','Sales'),('d008','Administration'),('d009','Security');
+/*!40000 ALTER TABLE `departments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `dept_emp`
+--
+
+DROP TABLE IF EXISTS `dept_emp`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `dept_emp` (
+  `emp_no` int(11) DEFAULT NULL,
+  `dept_no` char(4) DEFAULT NULL,
+  `from_date` date DEFAULT NULL,
+  `to_date` date DEFAULT NULL,
+  KEY `emp_no` (`emp_no`),
+  KEY `dept_no` (`dept_no`),
+  CONSTRAINT `dept_emp_ibfk_1` FOREIGN KEY (`emp_no`) REFERENCES `employees` (`emp_no`),
+  CONSTRAINT `dept_emp_ibfk_2` FOREIGN KEY (`dept_no`) REFERENCES `departments` (`dept_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dept_emp`
+--
+
+LOCK TABLES `dept_emp` WRITE;
+/*!40000 ALTER TABLE `dept_emp` DISABLE KEYS */;
+INSERT INTO `dept_emp` VALUES (10001,'d001','2013-02-05','2015-02-05'),(10002,'d002','2005-08-20','2015-08-20'),(10003,'d002','2013-04-02','2014-04-02'),(10004,'d004','2003-02-28','2004-02-28'),(10005,'d006','2002-08-23','2003-08-23'),(10006,'d009','2010-03-02','2011-03-02'),(10007,'d003','2014-03-08','2015-03-08'),(10008,'d007','2016-09-30','2018-09-30'),(10009,'d002','2013-08-04','2016-08-04'),(10010,'d001','2008-11-18','2018-11-18');
+/*!40000 ALTER TABLE `dept_emp` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `dept_manager`
+--
+
+DROP TABLE IF EXISTS `dept_manager`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `dept_manager` (
+  `emp_no` int(11) DEFAULT NULL,
+  `dept_no` char(4) DEFAULT NULL,
+  `from_date` date DEFAULT NULL,
+  `to_date` date DEFAULT NULL,
+  KEY `emp_no` (`emp_no`),
+  KEY `dept_no` (`dept_no`),
+  CONSTRAINT `dept_manager_ibfk_1` FOREIGN KEY (`emp_no`) REFERENCES `employees` (`emp_no`),
+  CONSTRAINT `dept_manager_ibfk_2` FOREIGN KEY (`dept_no`) REFERENCES `departments` (`dept_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dept_manager`
+--
+
+LOCK TABLES `dept_manager` WRITE;
+/*!40000 ALTER TABLE `dept_manager` DISABLE KEYS */;
+INSERT INTO `dept_manager` VALUES (10001,'d005','2013-02-05','2015-02-05'),(10002,'d005','2005-08-20','2015-08-20'),(10003,'d005','2013-04-02','2014-04-02'),(10004,'d005','2003-02-28','2004-02-28'),(10005,'d008','2002-08-23','2003-08-23'),(10006,'d008','2010-03-02','2011-03-02'),(10007,'d008','2014-03-08','2015-03-08'),(10008,'d008','2016-09-30','2018-09-30'),(10008,'d007','2016-09-30','2018-09-30'),(10009,'d007','2013-08-04','2016-08-04'),(10010,'d007','2008-11-18','2018-11-18'),(10001,'d006','2013-02-05','2015-02-05'),(10002,'d006','2005-08-20','2015-08-20'),(10003,'d006','2013-04-02','2014-04-02'),(10004,'d006','2003-02-28','2004-02-28'),(10005,'d006','2002-08-23','2003-08-23'),(10006,'d006','2010-03-02','2011-03-02');
+/*!40000 ALTER TABLE `dept_manager` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `employees`
+--
+
+DROP TABLE IF EXISTS `employees`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `employees` (
+  `emp_no` int(11) NOT NULL,
+  `birth_date` date DEFAULT NULL,
+  `first_name` varchar(14) DEFAULT NULL,
+  `last_name` varchar(16) DEFAULT NULL,
+  `gender` enum('M','F') DEFAULT NULL,
+  `hire_date` date DEFAULT NULL,
+  PRIMARY KEY (`emp_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `employees`
+--
+
+LOCK TABLES `employees` WRITE;
+/*!40000 ALTER TABLE `employees` DISABLE KEYS */;
+INSERT INTO `employees` VALUES (10001,'1977-02-23','Bebe','Exposito','F','2013-02-05'),(10002,'1964-05-06','Jeth','Haresnaip','M','2005-08-20'),(10003,'1960-04-28','Osbourne','Vernazza','M','2013-04-02'),(10004,'1961-08-20','Ker','Briars','M','2003-02-28'),(10005,'1993-02-20','Cleon','Pitcaithly','M','2002-08-23'),(10006,'1973-08-24','Ursola','Byrth','F','2010-03-02'),(10007,'1966-01-13','Hunfredo','Downer','M','2014-03-08'),(10008,'1971-06-21','Suzann','Padfield','F','2016-09-30'),(10009,'1971-07-09','Fergus','Bullocke','M','2013-08-04'),(10010,'1972-10-25','Magdalene','Cawte','F','2008-11-18');
+/*!40000 ALTER TABLE `employees` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `salaries`
+--
+
+DROP TABLE IF EXISTS `salaries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `salaries` (
+  `emp_no` int(11) DEFAULT NULL,
+  `salary` int(11) DEFAULT NULL,
+  `from_date` date NOT NULL DEFAULT '0000-00-00',
+  `to_date` date DEFAULT NULL,
+  PRIMARY KEY (`from_date`),
+  KEY `emp_no` (`emp_no`),
+  CONSTRAINT `salaries_ibfk_1` FOREIGN KEY (`emp_no`) REFERENCES `employees` (`emp_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `salaries`
+--
+
+LOCK TABLES `salaries` WRITE;
+/*!40000 ALTER TABLE `salaries` DISABLE KEYS */;
+INSERT INTO `salaries` VALUES (10005,16677,'2002-08-23','2003-08-23'),(10004,81522,'2003-02-28','2004-02-28'),(10002,39719,'2005-08-20','2015-08-20'),(10010,23926,'2008-11-18','2018-11-18'),(10006,76376,'2010-03-02','2011-03-02'),(10001,63510,'2013-02-05','2015-02-05'),(10003,55083,'2013-04-02','2014-04-02'),(10009,87459,'2013-08-04','2016-08-04'),(10007,50934,'2014-03-08','2015-03-08'),(10008,69608,'2016-09-30','2018-09-30');
+/*!40000 ALTER TABLE `salaries` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `titles`
+--
+
+DROP TABLE IF EXISTS `titles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `titles` (
+  `emp_no` int(11) DEFAULT NULL,
+  `title` varchar(50) NOT NULL DEFAULT '',
+  `from_date` date NOT NULL DEFAULT '0000-00-00',
+  `to_date` date DEFAULT NULL,
+  PRIMARY KEY (`title`,`from_date`),
+  KEY `emp_no` (`emp_no`),
+  CONSTRAINT `titles_ibfk_1` FOREIGN KEY (`emp_no`) REFERENCES `employees` (`emp_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `titles`
+--
+
+LOCK TABLES `titles` WRITE;
+/*!40000 ALTER TABLE `titles` DISABLE KEYS */;
+INSERT INTO `titles` VALUES (10003,'C++ Developer','2013-04-02','2014-04-02'),(10009,'CIO','2013-08-04','2016-08-04'),(10004,'Financial Advisor','2003-02-28','2004-02-28'),(10001,'Human Resources Manager','2013-02-05','2015-02-05'),(10002,'Java Developer','2005-08-20','2015-08-20'),(10006,'Lead Investigator','2010-03-02','2011-03-02'),(10010,'Payrol Administrator','2008-11-18','2018-11-18'),(10007,'PR Manager','2014-03-08','2015-03-08'),(10008,'Sales Representative','2016-09-30','2018-09-30'),(10005,'Truck Driver','2002-08-23','2003-08-23');
+/*!40000 ALTER TABLE `titles` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-02-26 18:49:09

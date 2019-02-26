@@ -1,0 +1,361 @@
+use u18009035_Employees;
+
+/* Creating Tables */
+
+CREATE TABLE employees (
+  emp_no int(11) PRIMARY KEY,
+  birth_date DATE,
+  first_name varchar(14),
+  last_name varchar(16),
+  gender ENUM('M', 'F'),
+  hire_date DATE
+);
+
+
+CREATE TABLE titles (
+  emp_no int(11),
+  title varchar(50),
+  from_date DATE,
+  to_date DATE,
+  PRIMARY KEY (title, from_date),
+  FOREIGN KEY (emp_no) REFERENCES employees(emp_no)
+);
+
+
+CREATE TABLE salaries (
+  emp_no int(11),
+  salary int(11),
+  from_date DATE,
+  to_date DATE,
+  PRIMARY KEY (from_date),
+  FOREIGN KEY (emp_no) REFERENCES employees(emp_no)
+);
+
+
+
+CREATE TABLE departments (
+  dept_no char(4),
+  dept_name varchar(40),
+  PRIMARY KEY (dept_no)
+);
+
+
+CREATE TABLE dept_emp (
+  emp_no int(11),
+  dept_no char(4),
+  from_date DATE,
+  to_date DATE,
+  FOREIGN KEY (emp_no) REFERENCES employees(emp_no),
+  FOREIGN KEY (dept_no) REFERENCES departments(dept_no)
+);
+
+
+CREATE TABLE dept_manager (
+  emp_no int(11),
+  dept_no char(4),
+  from_date DATE,
+  to_date DATE,
+  FOREIGN KEY (emp_no) REFERENCES employees(emp_no),
+  FOREIGN KEY (dept_no) REFERENCES departments(dept_no)
+);
+
+/* Inserting Departments */
+
+INSERT INTO
+  departments
+VALUES
+  ('d001', 'Human Resources');
+INSERT INTO
+  departments
+VALUES
+  ('d002', 'Information Technology');
+INSERT INTO
+  departments
+VALUES
+  ('d003', 'Marketing');
+INSERT INTO
+  departments
+VALUES
+  ('d004', 'Finance');
+INSERT INTO
+  departments
+VALUES
+  ('d005', 'Research & Development');
+INSERT INTO
+  departments
+VALUES
+  ('d006', 'Logistics');
+INSERT INTO
+  departments
+VALUES
+  ('d007', 'Sales');
+INSERT INTO
+  departments
+VALUES
+  ('d008', 'Administration');
+INSERT INTO
+  departments
+VALUES
+  ('d009', 'Security');
+
+/* Inserting Employees */
+
+INSERT INTO
+  employees
+VALUES
+  ('10001','1977-02-23','Bebe','Exposito','F','2013-02-05');
+INSERT INTO
+  employees
+VALUES
+  ('10002','1964-05-06','Jeth','Haresnaip','M','2005-08-20');
+INSERT INTO
+  employees
+VALUES
+  ('10003','1960-04-28','Osbourne','Vernazza','M','2013-04-02');
+INSERT INTO
+  employees
+VALUES
+  ('10004','1961-08-20','Ker','Briars','M','2003-02-28');
+INSERT INTO
+  employees
+VALUES
+  ('10005','1993-02-20','Cleon','Pitcaithly','M','2002-08-23');
+INSERT INTO
+  employees
+VALUES
+  ('10006','1973-08-24','Ursola','Byrth','F','2010-03-02');
+INSERT INTO
+  employees
+VALUES
+  ('10007','1966-01-13','Hunfredo','Downer','M','2014-03-08');
+INSERT INTO
+  employees
+VALUES
+  ('10008','1971-06-21','Suzann','Padfield','F','2016-09-30');
+INSERT INTO
+  employees
+VALUES
+  ('10009','1971-07-09','Fergus','Bullocke','M','2013-08-04');
+INSERT INTO
+  employees
+VALUES
+  ('10010','1972-10-25','Magdalene','Cawte','F','2008-11-18');
+
+/* Inserting Titles */
+
+
+INSERT INTO
+  titles
+VALUES
+  ('10001','Human Resources Manager','2013-02-05','2015-02-05');
+INSERT INTO
+  titles
+VALUES
+  ('10002','Java Developer','2005-08-20','2015-08-20');
+INSERT INTO
+  titles
+VALUES
+  ('10003','C++ Developer','2013-04-02','2014-04-02');
+INSERT INTO
+  titles
+VALUES
+  ('10004','Financial Advisor','2003-02-28','2004-02-28');
+INSERT INTO
+  titles
+VALUES
+  ('10005','Truck Driver','2002-08-23','2003-08-23');
+INSERT INTO
+  titles
+VALUES
+  ('10006','Lead Investigator','2010-03-02','2011-03-02');
+INSERT INTO
+  titles
+VALUES
+  ('10007','PR Manager','2014-03-08','2015-03-08');
+INSERT INTO
+  titles
+VALUES
+  ('10008','Sales Representative','2016-09-30','2018-09-30');
+INSERT INTO
+  titles
+VALUES
+  ('10009','CIO','2013-08-04','2016-08-04');
+INSERT INTO
+  titles
+VALUES
+  ('10010','Payrol Administrator','2008-11-18','2018-11-18');
+
+/* Inserting Salaries */
+
+INSERT INTO
+  salaries
+VALUES
+  ('10001','63510','2013-02-05','2015-02-05');
+INSERT INTO
+  salaries
+VALUES
+  ('10002','39719','2005-08-20','2015-08-20');
+INSERT INTO
+  salaries
+VALUES
+  ('10003','55083','2013-04-02','2014-04-02');
+INSERT INTO
+  salaries
+VALUES
+  ('10004','81522','2003-02-28','2004-02-28');
+INSERT INTO
+  salaries
+VALUES
+  ('10005','16677','2002-08-23','2003-08-23');
+INSERT INTO
+  salaries
+VALUES
+  ('10006','76376','2010-03-02','2011-03-02');
+INSERT INTO
+  salaries
+VALUES
+  ('10007','50934','2014-03-08','2015-03-08');
+INSERT INTO
+  salaries
+VALUES
+  ('10008','69608','2016-09-30','2018-09-30');
+INSERT INTO
+  salaries
+VALUES
+  ('10009','87459','2013-08-04','2016-08-04');
+INSERT INTO
+  salaries
+VALUES
+  ('10010','23926','2008-11-18','2018-11-18');
+
+
+/* Inserting detp_emp */
+
+INSERT INTO
+  dept_emp
+VALUES
+  ('10001','d001','2013-02-05','2015-02-05');
+INSERT INTO
+  dept_emp
+VALUES
+  ('10002','d002','2005-08-20','2015-08-20');
+INSERT INTO
+  dept_emp
+VALUES
+  ('10003','d002','2013-04-02','2014-04-02');
+INSERT INTO
+  dept_emp
+VALUES
+  ('10004','d004','2003-02-28','2004-02-28');
+INSERT INTO
+  dept_emp
+VALUES
+  ('10005','d006','2002-08-23','2003-08-23');
+INSERT INTO
+  dept_emp
+VALUES
+  ('10006','d009','2010-03-02','2011-03-02');
+INSERT INTO
+  dept_emp
+VALUES
+  ('10007','d003','2014-03-08','2015-03-08');
+INSERT INTO
+  dept_emp
+VALUES
+  ('10008','d007','2016-09-30','2018-09-30');
+INSERT INTO
+  dept_emp
+VALUES
+  ('10009','d002','2013-08-04','2016-08-04');
+INSERT INTO
+  dept_emp
+VALUES
+  ('10010','d001','2008-11-18','2018-11-18');
+
+
+/* insert dept_managers */
+
+INSERT INTO
+  dept_manager
+VALUES
+  ('10001','d005','2013-02-05','2015-02-05');
+INSERT INTO
+  dept_manager
+VALUES
+  ('10002','d005','2005-08-20','2015-08-20');
+INSERT INTO
+  dept_manager
+VALUES
+  ('10003','d005','2013-04-02','2014-04-02');
+INSERT INTO
+  dept_manager
+VALUES
+  ('10004','d005','2003-02-28','2004-02-28');
+INSERT INTO
+  dept_manager
+VALUES
+  ('10005','d008','2002-08-23','2003-08-23');
+INSERT INTO
+  dept_manager
+VALUES
+  ('10006','d008','2010-03-02','2011-03-02');
+INSERT INTO
+  dept_manager
+VALUES
+  ('10007','d008','2014-03-08','2015-03-08');
+INSERT INTO
+  dept_manager
+VALUES
+  ('10008','d008','2016-09-30','2018-09-30');
+INSERT INTO
+  dept_manager
+VALUES
+  ('10008','d007','2016-09-30','2018-09-30');
+INSERT INTO
+  dept_manager
+VALUES
+  ('10009','d007','2013-08-04','2016-08-04');
+INSERT INTO
+  dept_manager
+VALUES
+  ('10010','d007','2008-11-18','2018-11-18');
+INSERT INTO
+  dept_manager
+VALUES
+  ('10001','d006','2013-02-05','2015-02-05');
+INSERT INTO
+  dept_manager
+VALUES
+  ('10002','d006','2005-08-20','2015-08-20');
+INSERT INTO
+  dept_manager
+VALUES
+  ('10003','d006','2013-04-02','2014-04-02');
+INSERT INTO
+  dept_manager
+VALUES
+  ('10004','d006','2003-02-28','2004-02-28');
+INSERT INTO
+  dept_manager
+VALUES
+  ('10005','d006','2002-08-23','2003-08-23');
+INSERT INTO
+  dept_manager
+VALUES
+  ('10006','d006','2010-03-02','2011-03-02');
+
+/* Write and execute a simple query to retrieve employees working for department d004. */
+
+SELECT employees.*
+FROM employees
+INNER JOIN dept_emp
+ON employees.emp_no = dept_emp.emp_no
+WHERE dept_emp.dept_no = 'd004';
+
+
+/* Backup all Tables */
+
+ mysqldump --column-statistics=0 -h wheatley.cs.up.ac.za -u u18009035 -p u18009035_Employees > db_backup_name.txt
+
+mysql -h wheatley.cs.up.ac.za -u u18009035 -p u18009035_Employees < db_backup_name.txt
+
